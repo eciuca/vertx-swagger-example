@@ -1,0 +1,31 @@
+swagger: "2.0"
+info:
+  version: "1.0"
+  title: Greetings
+host: localhost:8080
+basePath: /v1
+schemes:
+  - http
+paths:
+  /hello/{name}:
+    get:
+      tags:
+        - greeting
+      summary: Greets
+      operationId: sayHello
+      produces:
+        - application/json
+      parameters:
+         - in: path
+           name: name
+           required: true
+           type: string
+      responses:
+        default:
+          description: success
+definitions:
+  Greeting:
+    type: object
+    properties:
+      text:
+        type: string
