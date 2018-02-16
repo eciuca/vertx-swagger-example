@@ -7,10 +7,7 @@ import io.swagger.parser.SwaggerParser;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Future;
-import io.vertx.core.Handler;
 import io.vertx.core.buffer.Buffer;
-import io.vertx.core.eventbus.Message;
-import io.vertx.core.json.Json;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.Router;
 
@@ -27,7 +24,7 @@ public class TheVerticle extends AbstractVerticle {
 
                 Router swaggerRouter = configureSwaggerRouter(readFile);
 
-                vertx.eventBus().<JsonObject>consumer("sayHello").handler( new GreetingsResource()::sayHelloHandler);
+                vertx.eventBus().<JsonObject>consumer("sayHello").handler(new GreetingsResource()::sayHelloHandler);
 
                 createHttpServer(startFuture, swaggerRouter);
             } else {
@@ -40,7 +37,6 @@ public class TheVerticle extends AbstractVerticle {
         Swagger swagger = new SwaggerParser().parse(readFile.result().toString(Charset.forName("utf-8")));
         return SwaggerRouter.swaggerRouter(Router.router(vertx), swagger, vertx.eventBus(), new OperationIdServiceIdResolver());
     }
-
 
 
     private void createHttpServer(Future<Void> startFuture, Router swaggerRouter) {
