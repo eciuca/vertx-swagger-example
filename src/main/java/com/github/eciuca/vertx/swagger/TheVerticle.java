@@ -11,9 +11,17 @@ import io.vertx.core.buffer.Buffer;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.Router;
 
+import javax.inject.Inject;
 import java.nio.charset.Charset;
 
 public class TheVerticle extends AbstractVerticle {
+
+    private final GreetingsResource greetingsResource;
+
+    @Inject
+    public TheVerticle(GreetingsResource greetingsResource) {
+        this.greetingsResource = greetingsResource;
+    }
 
     @Override
     public void start(Future<Void> startFuture) throws Exception {
@@ -24,7 +32,7 @@ public class TheVerticle extends AbstractVerticle {
 
                 Router swaggerRouter = configureSwaggerRouter(readFile);
 
-                vertx.eventBus().<JsonObject>consumer("sayHello").handler(new GreetingsResource()::sayHelloHandler);
+                vertx.eventBus().<JsonObject>consumer("sayHello").handler(greetingsResource::sayHelloHandler);
 
                 createHttpServer(startFuture, swaggerRouter);
             } else {

@@ -1,0 +1,3 @@
+{
+ "guice_binder": "com.github.eciuca.vertx.swagger.module.TheVerticleModule"
+}
