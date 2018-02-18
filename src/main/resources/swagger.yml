@@ -23,9 +23,27 @@ paths:
       responses:
         default:
           description: success
+  /jokes:
+      get:
+        tags:
+          - joke
+        summary: Jokes
+        operationId: sayAJoke
+        produces:
+          - application/json
+        responses:
+          default:
+            description: success
 definitions:
   Greeting:
     type: object
     properties:
       text:
         type: string
+  Joke:
+    type: object
+    properties:
+      text:
+        type: string
+      isFunny:
+        type: boolean
